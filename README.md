@@ -3,7 +3,7 @@ Ansible playbook and Docker compose file for running Ollama on a Raspberry Pi wi
 ---
 To setup, you will need a Raspberry Pi (ideally 4 or higher) running a Debian-based OS (recommended Raspberry Pi OS Lite 64-bit). Optionally, a PC with Ansible installed.
 
-Install the OS and set the hostname to "pillama." This will make the multicats address "pillama.local." Also either set the username to "pi" or change the ansible_user value in inventory.yaml.
+Install the OS and set the hostname to "pillama." This will make the multicast address "pillama.local." Also either set the username to "pi" or change the ansible_user value in inventory.yaml.
 
 Clone this repo and run the playbook:
 
