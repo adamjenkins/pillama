@@ -9,5 +9,9 @@ Clone this repo and run the playbook:
 
 ansible-playbook -i inventory.yaml setup.yaml
 
+After it's finished, login to the pi and start the docker images:
+
+sudo docker-compose up -d
+
 ---
 If all goes well, in a few minutes you should have a Wifi Network come up called "Pillama-Wifi" with password "pillama". Accessing this Wifi and visiting http://pillama.local should let you login to the WebUI for the Pillama. Download a model and start using your new AI. http://pillama.local should also be reachable from any LAN the pi is connected to a la multicast.
