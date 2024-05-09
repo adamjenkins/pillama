@@ -34,18 +34,10 @@
 
     - name: Setup WIFI password
       ansible.builtin.command:
-        cmd: nmcli con modify hotspot wifi-sec.psk "pillama"
+        cmd: nmcli con modify hotspot wifi-sec.psk "pillamawifi"
 
     - name: Setup WIFI as access-point
       ansible.builtin.command:
         cmd: nmcli con modify hotspot 802-11-wireless.mode ap 802-11-wireless.band bg ipv4.method shared
 
 # Reference: https://raspberrytips.com/access-point-setup-raspberry-pi/#setting-up-an-access-point-on-raspberry-pi-os-bookworm
-
-
-    - name: Run docker-compose
-      ansible.builtin.command: 
-        cmd: docker-compose up -d
-        args:
-          chdir: '/home/{{ ansible_user }}/'
-
