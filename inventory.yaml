@@ -1,0 +1,10 @@
+all:
+  children:
+    pillama:
+      hosts:
+        raspi:
+          ansible_host: pillama.local
+          ansible_user: pi
+          ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+      vars:
+        ansible_port: 22

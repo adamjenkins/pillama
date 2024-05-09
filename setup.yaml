@@ -1,0 +1,51 @@
+---
+- hosts: pillama
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Ansible apt install server packages
+      ansible.builtin.apt:
+        name:
+          - htop
+          - git
+          - rsync
+          - snapd
+          - docker-compose
+        update_cache: true
+        state: present
+      tags: packages
+
+    - name: Setup Docker compose file
+      copy:
+        dest: "/home/{{ ansible_user }}/docker-compose.yaml"
+        mode: "0644"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        src: /home/adam/Dropbox/Ansible/OLLAMA/docker-compose.yaml
+
+
+    - name: Setup WIFI interface
+      ansible.builtin.command:
+        cmd: nmcli con add con-name hotspot ifname wlan0 type wifi ssid "Pillama-Wifi"
+
+    - name: Setup WIFI wpa-psk
+      ansible.builtin.command:
+        cmd: nmcli con modify hotspot wifi-sec.key-mgmt wpa-psk
+
+    - name: Setup WIFI password
+      ansible.builtin.command:
+        cmd: nmcli con modify hotspot wifi-sec.psk "pillama"
+
+    - name: Setup WIFI as access-point
+      ansible.builtin.command:
+        cmd: nmcli con modify hotspot 802-11-wireless.mode ap 802-11-wireless.band bg ipv4.method shared
+
+# Reference: https://raspberrytips.com/access-point-setup-raspberry-pi/#setting-up-an-access-point-on-raspberry-pi-os-bookworm
+
+
+    - name: Run docker-compose
+      ansible.builtin.command: 
+        cmd: docker-compose up -d
+        args:
+          chdir: '/home/{{ ansible_user }}/'
+
